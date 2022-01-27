@@ -11,7 +11,6 @@ struct Window
     const char* title;
 
     void create();
-    void loop();
     void destroy();
 };
 

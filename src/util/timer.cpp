@@ -1,6 +1,6 @@
 #include <chrono>
 
-#include "time.h"
+#include "timer.h"
 
 static int64_t _previous_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
 static int64_t _current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();

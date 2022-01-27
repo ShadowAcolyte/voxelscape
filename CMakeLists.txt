@@ -12,7 +12,7 @@ set (SRC
  "src/main.cpp"
  "src/config.h" "src/config.cpp"
  "src/util/log.h" "src/util/log.cpp"
- "src/util/time.h" "src/util/time.cpp"
+ "src/util/timer.h" "src/util/timer.cpp"
  "src/input/input.h"
  "src/input/mouse_input.cpp"
  "src/input/keyboard_input.cpp"
@@ -28,7 +28,7 @@ set (SRC
 
 add_executable (voxelscape ${SRC})
 
-target_compile_features (voxelscape PRIVATE cxx_std_17)
+target_compile_features (voxelscape PRIVATE cxx_std_20)
 target_link_libraries (voxelscape PRIVATE glad glfw glm stb spdlog::spdlog)
 
 file (COPY ./shaders DESTINATION ./)
