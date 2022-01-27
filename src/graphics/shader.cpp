@@ -14,7 +14,7 @@ static int _check_compile_errors(unsigned int shader)
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
         glGetShaderInfoLog(shader, length, NULL, info);
-        logger::error("Shader compilation failed! \n %s", 1, info);
+        logger::error("Shader compilation failed! \n {}", info);
         delete[] info;
     }
     return success;
@@ -27,7 +27,7 @@ static unsigned int _compile_shader(const std::string& type, const std::string& 
 
     if (file.fail())
     {
-        logger::error("Failed to read shader file: %s!", 1, path.c_str());
+        logger::error("Failed to read shader file: '{}'!", path.c_str());
         return 0;
     }
     else
@@ -38,7 +38,7 @@ static unsigned int _compile_shader(const std::string& type, const std::string& 
         code = ss.str();
     }
 
-    logger::info("Compiling shader %s of type %s.", 2, path.c_str(), type.c_str());
+    logger::info("Compiling shader '{}' of type '{}'.", path.c_str(), type.c_str());
     unsigned int shader = NULL;
     const char* _code = code.c_str();
 
@@ -47,7 +47,7 @@ static unsigned int _compile_shader(const std::string& type, const std::string& 
     else if (type == "COMPUTE")     shader = glCreateShader(GL_COMPUTE_SHADER);
     else
     {
-        logger::error("Unknow shader type passed in _compile_shader(): %s!", 1, type.c_str());
+        logger::error("Unknow shader type passed in _compile_shader(): '{}'!", type.c_str());
         return 0;
     }
 
@@ -58,7 +58,7 @@ static unsigned int _compile_shader(const std::string& type, const std::string& 
     return shader;
 }
 
-static int _check_link_errors(ShaderProgram program)
+static int _check_link_errors(shader::ShaderProgram program)
 {
     int success;
     glGetProgramiv(program, GL_LINK_STATUS, &success);
@@ -68,13 +68,13 @@ static int _check_link_errors(ShaderProgram program)
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
         glGetProgramInfoLog(program, length, NULL, info);
-        logger::error("Shader program linking error!\n%s", 1, info);
+        logger::error("Shader program linking error!\n{}", 1, info);
         delete[] info;
     }
     return success;
 }
 
-ShaderProgram shader::create_program(const char* vert_path, const char* frag_path, const char* comp_path)
+shader::ShaderProgram shader::create_program(const char* vert_path, const char* frag_path, const char* comp_path)
 {
     unsigned int vs, fs, cs;
     vs = fs = cs = 0;
