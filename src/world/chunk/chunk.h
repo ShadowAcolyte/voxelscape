@@ -7,7 +7,7 @@
 
 #include "../block/block.h"
 #include "chunk_constants.h"
-#include "../../log.h"
+#include "../../util/log.h"
 
 struct Chunk
 {

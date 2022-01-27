@@ -4,6 +4,7 @@
 Chunk::Chunk(int x, int y, int z)
 {
     position = glm::ivec3(x, y, z);
+    blocks.reserve(CHUNK_VOLUME);
     for (int i = 0; i < CHUNK_VOLUME; i++)
         blocks.push_back(block::create());
 }
