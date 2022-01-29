@@ -12,7 +12,7 @@ camera::Camera::Camera(float fov, float aspect_ratio, float znear, float zfar)
     this->fov = fov;
     this->camspeed = 0.01f;
 
-    this->position = glm::vec3(0.0f, 0.0f, 3.0f);
+    this->position = glm::vec3(0.0f, 0.0f, 0.0f);
     this->direction = glm::vec3(0.0f, 0.0f, 1.0f);
 
     this->projection = glm::perspective(fov, aspect_ratio, znear, zfar);
