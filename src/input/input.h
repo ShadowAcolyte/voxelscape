@@ -1,5 +1,5 @@
-#ifndef GAIA_INPUT_H
-#define GAIA_INPUT_H
+#ifndef VOX_INPUT_H
+#define VOX_INPUT_H
 
 struct GLFWwindow;
 namespace camera { struct Camera; }
@@ -13,4 +13,4 @@ namespace input
     void handle_keyboard_input(float delta, camera::Camera& cam);
 }
 
-#endif // GAIA_INPUT_H
+#endif // !VOX_INPUT_H

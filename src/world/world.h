@@ -1,6 +1,6 @@
-#ifndef GAIA_WORLD_H
-#define GAIA_WORLD_H
+#ifndef VOX_WORLD_H
+#define VOX_WORLD_H
 
 
 
-#endif // GAIA_WORLD_H
+#endif // !VOX_WORLD_H

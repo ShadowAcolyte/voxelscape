@@ -1,5 +1,5 @@
-#ifndef GAIA_BLOCK_H
-#define GAIA_BLOCK_H
+#ifndef VOX_BLOCK_H
+#define VOX_BLOCK_H
 
 #include <cstdint>
 
@@ -45,4 +45,4 @@ namespace block
     }
 }
 
-#endif // GAIA_BLOCK_H
+#endif // !VOX_BLOCK_H

@@ -1,5 +1,5 @@
-#ifndef GAIA_CONFIG_H
-#define GAIA_CONFIG_H
+#ifndef VOX_CONFIG_H
+#define VOX_CONFIG_H
 
 namespace config
 {
@@ -10,4 +10,4 @@ namespace config
     extern float mouse_senstivity;
 }
 
-#endif // GAIA_CONFIG_H
+#endif // !VOX_CONFIG_H

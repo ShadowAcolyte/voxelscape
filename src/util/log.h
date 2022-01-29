@@ -1,5 +1,5 @@
-#ifndef GAIA_LOG_H
-#define GAIA_LOG_H
+#ifndef VOX_LOG_H
+#define VOX_LOG_H
 
 #include <spdlog/fmt/fmt.h>
 #include <spdlog/spdlog.h>
@@ -35,4 +35,4 @@ namespace logger
 	}
 }
 
-#endif // GAIA_LOG_H
+#endif // !VOX_LOG_H
