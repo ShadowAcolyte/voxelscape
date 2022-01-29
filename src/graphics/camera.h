@@ -1,5 +1,5 @@
-#ifndef GAIA_CAMERA_H
-#define GAIA_CAMERA_H
+#ifndef VOX_CAMERA_H
+#define VOX_CAMERA_H
 
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
@@ -32,4 +32,4 @@ namespace camera
     void update(Camera& cam, float fov, float aspect_ratio, float znear, float zfar);
 }
 
-#endif // GAIA_CAMERA_H
+#endif // !VOX_CAMERA_H

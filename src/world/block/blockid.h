@@ -1,5 +1,5 @@
-#ifndef GAIA_BLOCKID_H
-#define GAIA_BLOCKID_H
+#ifndef VOX_BLOCKID_H
+#define VOX_BLOCKID_H
 
 #include <cstdint>
 
@@ -13,4 +13,4 @@ namespace blockid
     };
 }
 
-#endif
+#endif // !VOX_BLOCKID_H

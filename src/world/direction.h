@@ -1,5 +1,5 @@
-#ifndef GAIA_DIRECTION_H
-#define GAIA_DIRECTION_H
+#ifndef VOX_DIRECTION_H
+#define VOX_DIRECTION_H
 
 namespace direction
 {
@@ -15,4 +15,4 @@ namespace direction
     };
 }
 
-#endif // !GAIA_DIRECTION_H
+#endif // !VOX_DIRECTION_H

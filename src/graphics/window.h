@@ -1,5 +1,5 @@
-#ifndef GAIA_WINDOW_H
-#define GAIA_WINDOW_H
+#ifndef VOX_WINDOW_H
+#define VOX_WINDOW_H
 
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -14,4 +14,4 @@ struct Window
     void destroy();
 };
 
-#endif // GAIA_WINDOW_H
+#endif // !VOX_WINDOW_H

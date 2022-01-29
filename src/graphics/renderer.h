@@ -1,5 +1,5 @@
-#ifndef GAIA_RENDER_H
-#define GAIA_RENDER_H
+#ifndef VOX_RENDERER_H
+#define VOX_RENDERER_H
 
 struct Chunk;
 
@@ -8,4 +8,4 @@ namespace renderer
     void render_chunk(const Chunk* chunk);
 }
 
-#endif // GAIA_RENDER_H
+#endif // !VOX_RENDERER_H

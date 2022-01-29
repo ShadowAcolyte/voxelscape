@@ -1,4 +1,5 @@
-#ifndef GAIA_TIME_H
+#ifndef VOX_TIME_H
+#define VOX_TIME_H
 
 #include <cstdint>
 
@@ -14,4 +15,4 @@ namespace timer
     int get_fps_avg();
 }
 
-#endif // GAIA_TIME_H
+#endif // !VOX_TIME_H

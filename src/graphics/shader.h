@@ -1,5 +1,5 @@
-#ifndef GAIA_SHADER_H
-#define GAIA_SHADER_H
+#ifndef VOX_SHADER_H
+#define VOX_SHADER_H
 
 #include <glad/glad.h>
 #include <glm/vec2.hpp>
@@ -36,4 +36,4 @@ namespace shader
     }
 }
 
-#endif // GAIA_SHADER_H
+#endif // !VOX_SHADER_H
