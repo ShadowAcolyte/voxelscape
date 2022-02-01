@@ -30,16 +30,19 @@ void BlockAtlas::Init(const std::string& atlasFilePath, const std::string& textu
 
     for (Direction d = Direction::NORTH; d < Direction::TOTAL; ++d)
     {
-        BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::AIR)][int(d)][0] = glm::vec2(0, 0);
-        BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::AIR)][int(d)][1] = glm::vec2(0, 0);
-        BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::AIR)][int(d)][2] = glm::vec2(0, 0);
-        BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::AIR)][int(d)][3] = glm::vec2(0, 0);
+        BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::AIR)][static_cast<int>(d)][0] = glm::vec2(0, 0);
+        BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::AIR)][static_cast<int>(d)][1] = glm::vec2(0, 0);
+        BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::AIR)][static_cast<int>(d)][2] = glm::vec2(0, 0);
+        BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::AIR)][static_cast<int>(d)][3] = glm::vec2(0, 0);
     }
 
-    _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::GRASS)][int(Direction::TOP)], 0, 0);
-    _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::GRASS)][int(Direction::BOTTOM)], 0, 2);
+    for (Direction d = Direction::NORTH; d < Direction::TOTAL; ++d)
+        _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::DIRT)][static_cast<int>(d)], 0, 2);
+
+    _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::GRASS)][static_cast<int>(Direction::TOP)], 0, 0);
+    _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::GRASS)][static_cast<int>(Direction::BOTTOM)], 0, 2);
     for (Direction d = Direction::NORTH; d <= Direction::WEST; ++d)
-        _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[int(BlockID::GRASS)][int(d)], 0, 1);
+        _WriteFaceTexcoords(BLOCK_TEXTURE_LOOKUP_TABLE[static_cast<int>(BlockID::GRASS)][static_cast<int>(d)], 0, 1);
 }
 
 /* Vertex number must be between 0 and 3.

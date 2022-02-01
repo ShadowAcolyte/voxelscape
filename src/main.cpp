@@ -23,95 +23,6 @@ static void _WindowSizeCallback(GLFWwindow* window, int width, int height)
     cam.Update(cam.m_fov, width * 1.0f / height, 0.01f, 100.0f);
 }
 
-void _WriteFaces(Mesh* mesh, Block* block, int x, int y, int z)
-{
-    int offset = mesh->m_vertices.size();
-    if (block->GetVisible(Direction::NORTH))
-    {
-        mesh->m_vertices.push_back(Vertex(glm::vec3(1 + x, 1 + y, 0 + z), glm::vec3(0, 0, 0), BlockAtlas::GetTextureCoords(block, Direction::NORTH, 0), glm::vec3(0, 0, 0)));
-        mesh->m_vertices.push_back(Vertex(glm::vec3(1 + x, 0 + y, 0 + z), glm::vec3(0, 0, 0), BlockAtlas::GetTextureCoords(block, Direction::NORTH, 1), glm::vec3(0, 0, 0)));
-        mesh->m_vertices.push_back(Vertex(glm::vec3(0 + x, 0 + y, 0 + z), glm::vec3(0, 0, 0), BlockAtlas::GetTextureCoords(block, Direction::NORTH, 2), glm::vec3(0, 0, 0)));
-        mesh->m_vertices.push_back(Vertex(glm::vec3(0 + x, 1 + y, 0 + z), glm::vec3(0, 0, 0), BlockAtlas::GetTextureCoords(block, Direction::NORTH, 3), glm::vec3(0, 0, 0)));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-    if (block->GetVisible(Direction::SOUTH))
-    {
-        mesh->m_vertices.push_back(Vertex(0 + x, 1 + y, 1 + z, 0, 0, 0, 0, 0, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 0 + y, 1 + z, 0, 0, 0, 0, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 0 + y, 1 + z, 0, 0, 0, 1, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 1 + y, 1 + z, 0, 0, 0, 1, 0, 0, 0, 0));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-    if (block->GetVisible(Direction::EAST))
-    {
-        mesh->m_vertices.push_back(Vertex(1 + x, 1 + y, 1 + z, 0, 0, 0, 0, 0, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 0 + y, 1 + z, 0, 0, 0, 0, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 0 + y, 0 + z, 0, 0, 0, 1, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 1 + y, 0 + z, 0, 0, 0, 1, 0, 0, 0, 0));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-    if (block->GetVisible(Direction::WEST))
-    {
-        mesh->m_vertices.push_back(Vertex(0 + x, 1 + y, 0 + z, 0, 0, 0, 0, 0, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 0 + y, 0 + z, 0, 0, 0, 0, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 0 + y, 1 + z, 0, 0, 0, 1, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 1 + y, 1 + z, 0, 0, 0, 1, 0, 0, 0, 0));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-    if (block->GetVisible(Direction::TOP))
-    {
-        mesh->m_vertices.push_back(Vertex(0 + x, 1 + y, 0 + z, 0, 0, 0, 0, 0, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 1 + y, 1 + z, 0, 0, 0, 0, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 1 + y, 1 + z, 0, 0, 0, 1, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 1 + y, 0 + z, 0, 0, 0, 1, 0, 0, 0, 0));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-    if (block->GetVisible(Direction::BOTTOM))
-    {
-        mesh->m_vertices.push_back(Vertex(1 + x, 0 + y, 0 + z, 0, 0, 0, 0, 0, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(1 + x, 0 + y, 1 + z, 0, 0, 0, 0, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 0 + y, 1 + z, 0, 0, 0, 1, 1, 0, 0, 0));
-        mesh->m_vertices.push_back(Vertex(0 + x, 0 + y, 0 + z, 0, 0, 0, 1, 0, 0, 0, 0));
-        mesh->m_indices.push_back(offset + 0);
-        mesh->m_indices.push_back(offset + 1);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 2);
-        mesh->m_indices.push_back(offset + 3);
-        mesh->m_indices.push_back(offset + 0);
-        offset += 4;
-    }
-}
-
 namespace game
 {
     static void init()
@@ -141,13 +52,14 @@ namespace game
         //int64_t t1, t2; float diff;
 
         Chunk chunk1(0, 0, 0), chunk2(16, 16, 16), chunk3(16, 16, -16);
+        Block dirt(BlockID::DIRT);
         Block grass(BlockID::GRASS);
         for (int y = 0; y < CHUNK_SIZE; y++) {
             for (int z = 0; z < CHUNK_SIZE; z++) {
                 for (int x = 0; x < CHUNK_SIZE; x++) {
                     if ((x * x + y * y + z * z) <= 16 * 16) {
-                        chunk1.PlaceBlock(grass, x, y, z);
-                        chunk2.PlaceBlock(grass, x, y, z);
+                        chunk1.PlaceBlock(dirt, x, y, z);
+                        chunk2.PlaceBlock(dirt, x, y, z);
                         chunk3.PlaceBlock(grass, x, y, z);
                     }
                 }
@@ -185,7 +97,7 @@ namespace game
                 _fps_time = 0;
             }
 
-            glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
+            //glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             /* Chunk1 */
             glBindBuffer(GL_ARRAY_BUFFER, vbo);
