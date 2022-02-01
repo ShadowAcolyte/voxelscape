@@ -3,16 +3,19 @@
 
 #include <cstdint>
 
-namespace timer
+namespace Timer
 {
-    void tick();
+    void Tick();
 
-    int64_t get_delta_ns();
-    float get_delta_us();
-    float get_delta_ms();
-    float get_delta_ms_avg();
-    int get_fps();
-    int get_fps_avg();
+    inline int64_t GetCurrTimeNs() {
+        return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+    }
+    int64_t GetDeltaNs();
+    float GetDeltaUs();
+    float GetDeltaMs();
+    float GetDeltaMsAvg();
+    int GetFps();
+    int GetFpsAvg();
 }
 
 #endif // !VOX_TIME_H

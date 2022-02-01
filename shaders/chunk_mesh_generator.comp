@@ -24,24 +24,16 @@ layout(binding = 0) uniform atomic_uint counter;
 
 uint face_count(uint block_data)
 {
-    return (block_data & 1)
-        +  ((block_data >> 1) & 1)
-        +  ((block_data >> 2) & 1)
-        +  ((block_data >> 3) & 1)
-        +  ((block_data >> 4) & 1)
-        +  ((block_data >> 5) & 1);
+    if (((block_data >> 6) & 0x3FF) == 0)
+		return 0;
+	else
+		return (block_data & 1)
+		    +  ((block_data >> 1) & 1)
+		    +  ((block_data >> 2) & 1)
+		    +  ((block_data >> 3) & 1)
+		    +  ((block_data >> 4) & 1)
+		    +  ((block_data >> 5) & 1);
 }
-
-//uint get_id_pos(uint block, ivec3 block_pos)
-//{
-//    // shift 12 bits left to make space for positions
-//    uint id = ((block >> 6) & 0x3FF) << 12;
-//    // 4 bits per coordinate (0-15), in total 3 * 4 = 12 bits needed
-//    uint pos = (block_pos.x << 8) | (block_pos.y << 4) | (block_pos.z);
-//    // shift 3 bits to make space for direction, 6 directions total -> log2(6) = 3 (rounded up) bits needed
-//    id = (id | pos) << 3;
-//    return id;
-//}
 
 void write_faces(uint block_data, ivec3 block_pos)
 {
@@ -64,21 +56,6 @@ void write_faces(uint block_data, ivec3 block_pos)
 
 void main()
 {
-    //for (int y = 0; y < 16; y++)
-    //{
-    //    for (int z = 0; z < 16; z++)
-    //    {
-    //        for (int x = 0; x < 16; x++)
-    //        {
-    //            ivec3 block_pos = ivec3(x, y, z);
-    //            uint block_data = blocks[block_pos.x + block_pos.z * 16 + block_pos.y * 16 * 16];
-    //            //faces[atomicCounterIncrement(counter)] = get_id_pos(block_data, block_pos);
-    //            atomicAdd(indirect.count, face_count(block_data) * 6);
-    //            write_faces(block_data, block_pos);
-    //        }
-    //    }
-    //}
-
     ivec3 block_pos = ivec3(gl_GlobalInvocationID);
     // converting from 3d chunk coordinates to 1d array index
     uint block_data = blocks[block_pos.x + block_pos.z * 16 + block_pos.y * 16 * 16];

@@ -7,7 +7,7 @@ static int64_t _current_frame = std::chrono::duration_cast<std::chrono::nanoseco
 static int64_t _delta_ns;
 static int64_t _avg_fps, _fps_clock, _fps_counter;
 
-void timer::tick()
+void Timer::Tick()
 {
     _current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
     _delta_ns = _current_frame - _previous_frame;
@@ -20,32 +20,32 @@ void timer::tick()
     _fps_counter++;
 }
 
-int64_t timer::get_delta_ns()
+int64_t Timer::GetDeltaNs()
 {
     return _delta_ns;
 }
 
-float timer::get_delta_us()
+float Timer::GetDeltaUs()
 {
     return _delta_ns / 1000.0f;
 }
 
-float timer::get_delta_ms()
+float Timer::GetDeltaMs()
 {
     return _delta_ns / 1000000.0f;
 }
 
-float timer::get_delta_ms_avg()
+float Timer::GetDeltaMsAvg()
 {
     return 1000.0f / _avg_fps;
 }
 
-int timer::get_fps()
+int Timer::GetFps()
 {
     return 1000000000 / _delta_ns;
 }
 
-int timer::get_fps_avg()
+int Timer::GetFpsAvg()
 {
     return _avg_fps;
 }

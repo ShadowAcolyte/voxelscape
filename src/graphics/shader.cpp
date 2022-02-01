@@ -4,7 +4,7 @@
 
 #include "shader.h"
 
-static int _check_compile_errors(unsigned int shader)
+static int _CheckCompileErrors(unsigned int shader)
 {
     int success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -14,20 +14,20 @@ static int _check_compile_errors(unsigned int shader)
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
         glGetShaderInfoLog(shader, length, NULL, info);
-        logger::error("Shader compilation failed! \n {}", info);
+        Logger::Error("Shader compilation failed! \n {}", info);
         delete[] info;
     }
     return success;
 }
 
-static unsigned int _compile_shader(const std::string& type, const std::string& path)
+static unsigned int _CompileShader(const std::string& type, const std::string& path)
 {
     std::ifstream file(path);
     std::string code;
 
     if (file.fail())
     {
-        logger::error("Failed to read shader file: '{}'!", path.c_str());
+        Logger::Error("Failed to read shader file: '{}'!", path.c_str());
         return 0;
     }
     else
@@ -38,27 +38,26 @@ static unsigned int _compile_shader(const std::string& type, const std::string& 
         code = ss.str();
     }
 
-    logger::info("Compiling shader '{}' of type '{}'.", path.c_str(), type.c_str());
+    Logger::Info("Compiling shader '{}' of type '{}'.", path.c_str(), type.c_str());
     unsigned int shader = NULL;
     const char* _code = code.c_str();
 
     if (type == "VERTEX")           shader = glCreateShader(GL_VERTEX_SHADER);
     else if (type == "FRAGMENT")    shader = glCreateShader(GL_FRAGMENT_SHADER);
     else if (type == "COMPUTE")     shader = glCreateShader(GL_COMPUTE_SHADER);
-    else
-    {
-        logger::error("Unknow shader type passed in _compile_shader(): '{}'!", type.c_str());
+    else {
+        Logger::Error("Unknow shader type passed in _compile_shader(): '{}'!", type.c_str());
         return 0;
     }
 
     glShaderSource(shader, 1, &_code, NULL);
     glCompileShader(shader);
-    if (_check_compile_errors(shader) != GL_TRUE)
+    if (_CheckCompileErrors(shader) != GL_TRUE)
         return 0;
     return shader;
 }
 
-static int _check_link_errors(shader::ShaderProgram program)
+static int _CheckLinkErrors(unsigned int program)
 {
     int success;
     glGetProgramiv(program, GL_LINK_STATUS, &success);
@@ -68,40 +67,47 @@ static int _check_link_errors(shader::ShaderProgram program)
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
         glGetProgramInfoLog(program, length, NULL, info);
-        logger::error("Shader program linking error!\n{}", 1, info);
+        Logger::Error("Shader program linking error!\n{}", 1, info);
         delete[] info;
     }
     return success;
 }
 
-shader::ShaderProgram shader::create_program(const char* vert_path, const char* frag_path, const char* comp_path)
+Shader::Shader(const char* vert_path, const char* frag_path, const char* comp_path)
 {
     unsigned int vs, fs, cs;
     vs = fs = cs = 0;
     if (vert_path != nullptr) {
-        vs = _compile_shader("VERTEX", vert_path);
-        if (!vs)
-            return 0;
+        vs = _CompileShader("VERTEX", vert_path);
+        if (!vs) {
+            m_id = 0;
+            return;
+        }
     }
     if (frag_path != nullptr) {
-        fs = _compile_shader("FRAGMENT", frag_path);
-        if (!fs)
-            return 0;
+        fs = _CompileShader("FRAGMENT", frag_path);
+        if (!fs) {
+            m_id = 0;
+            return;
+        }
     }
     if (comp_path != nullptr) {
-        cs = _compile_shader("COMPUTE", comp_path);
-        if (!cs)
-            return 0;
+        cs = _CompileShader("COMPUTE", comp_path);
+        if (!cs) {
+            m_id = 0;
+            return;
+        }
     }
 
-    logger::info("Creating shader program.");
-    ShaderProgram program = glCreateProgram();
-    if (vs)  glAttachShader(program, vs);
-    if (fs)  glAttachShader(program, fs);
-    if (cs)  glAttachShader(program, cs);
-    glLinkProgram(program);
+    Logger::Info("Creating shader program.");
+    m_id = glCreateProgram();
+    if (vs)  glAttachShader(m_id, vs);
+    if (fs)  glAttachShader(m_id, fs);
+    if (cs)  glAttachShader(m_id, cs);
+    glLinkProgram(m_id);
 
-    if (_check_link_errors(program) != GL_TRUE)
-        return 0;
-    return program;
+    if (_CheckLinkErrors(m_id) != GL_TRUE) {
+        glDeleteProgram(m_id);
+        m_id = 0;
+    }
 }

@@ -8,32 +8,29 @@
 
 #include "../util/log.h"
 
-namespace shader
+class Shader
 {
-    constexpr int UNIFORM_PROJ_VIEW_LOC = 0;
+public:
+    Shader(const char* vert_path, const char* frag_path, const char* comp_path);
 
-    typedef unsigned int ShaderProgram;
-    ShaderProgram create_program(const char* vert_path, const char* frag_path, const char* comp_path);
-
-    inline void enable(ShaderProgram id) {
-        if (!id) {
-            logger::warn("Cannot use program, program ID is 0!");
+    inline void Enable() {
+        if (!m_id) {
+            Logger::Warn("Cannot use program, program ID is 0!");
             return;
         }
-        glUseProgram(id);
+        glUseProgram(m_id);
     }
 
-    inline void disable() {
-        glUseProgram(0);
+    inline void Destroy() {
+        glDeleteProgram(m_id);
     }
 
-    inline void destroy(ShaderProgram id) {
-        glDeleteProgram(id);
+    inline void SetViewProj(const glm::mat4& viewProj) {
+        glUniformMatrix4fv(0, 1, GL_FALSE, &viewProj[0][0]);
     }
 
-    inline void set_proj_view(const glm::mat4& proj_view) {
-        glUniformMatrix4fv(UNIFORM_PROJ_VIEW_LOC, 1, GL_FALSE, & proj_view[0][0]);
-    }
-}
+private:
+    unsigned int m_id = 0;
+};
 
 #endif // !VOX_SHADER_H

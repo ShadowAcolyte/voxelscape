@@ -16,6 +16,7 @@ layout(std430, binding = 3) buffer Tables
 };
 
 layout(location = 0) uniform mat4 proj_view;
+layout(location = 1) uniform vec3 chunk_pos;
 
 out vec2 texcoords;
 
@@ -33,7 +34,7 @@ void main()
 	block_pos.z = (face >> 3)  & 0xF;
 	vec3 vert_pos = FACE_VERTEX_TABLE[direction][face_vertex_idx].xyz;
 
-	gl_Position = proj_view * vec4(block_pos + vert_pos, 1.0);
+	gl_Position = proj_view * vec4(chunk_pos + block_pos + vert_pos, 1.0);
 
 	if (face_vertex_idx == 0)
 		texcoords = vec2(0, 0);

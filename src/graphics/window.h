@@ -6,12 +6,12 @@
 
 struct Window
 {
-    GLFWwindow* handle;
-    int width, height;
-    const char* title;
+    GLFWwindow* m_handle;
+    int m_width, m_height;
+    const char* m_title;
 
-    void create();
-    void destroy();
+    void Create();
+    void Destroy();
 };
 
 #endif // !VOX_WINDOW_H

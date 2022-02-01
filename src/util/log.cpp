@@ -8,7 +8,7 @@
 static std::vector<spdlog::sink_ptr> _sinks;
 static std::shared_ptr<spdlog::logger> _core_logger;
 
-void logger::init()
+void Logger::Init()
 {
     auto _stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 #ifdef _WIN32

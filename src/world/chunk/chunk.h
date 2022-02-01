@@ -1,36 +1,33 @@
-#ifndef GAIA_CHUNK_H
-#define GAIA_CHUNK_H
+#ifndef VOX_CHUNK_H
+#define VOX_CHUNK_H
 
-#include <glm/vec3.hpp>
 #include <vector>
-#include <stdexcept>
+#include <glm/vec3.hpp>
 
-#include "../block/block.h"
 #include "chunk_constants.h"
-#include "../../util/log.h"
+#include "../block/block.h"
+#include "../../graphics/mesh.h"
 
-struct Chunk
+class Chunk
 {
-    std::vector<block::Block> blocks;
-    glm::ivec3 position;
+public:
+    std::vector<Block> m_blocks = std::vector<Block>(CHUNK_VOLUME, Block());
+    glm::ivec3 m_position;
+    Mesh m_mesh;
 
-    Chunk(int x, int y, int z);
+    Chunk(const glm::ivec3& position)
+        : m_position(position) {}
+    Chunk(unsigned int x, unsigned int y, unsigned int z)
+        : m_position(x, y, z) {}
 
-    inline block::Block& get_block(size_t x, size_t y, size_t z) noexcept
+    inline Block* GetBlockPtr(size_t x, size_t y, size_t z)
     {
-        if (x < 0 || x > CHUNK_SIZE - 1 ||
-            y < 0 || y > CHUNK_SIZE - 1 ||
-            z < 0 || z > CHUNK_SIZE - 1)
-        {
-            logger::error("'std::vector<block::Block> blocks' in Chunk.h -> index out of bound!");
-            exit(-1);
-        }
-        return blocks[y * CHUNK_AREA + z * CHUNK_SIZE + x];
+        return &m_blocks[x + y * CHUNK_AREA + z * CHUNK_SIZE];
     }
 
-    void place_block(block::Block b, size_t x, size_t y, size_t z);
-    void destroy_block(size_t x, size_t y, size_t z);
-    void destroy_chunk();
+    void PlaceBlock(const Block& block, size_t x, size_t y, size_t z);
+    void BreakBlock(size_t x, size_t y, size_t z);
+    void UpdateMesh();
 };
 
-#endif
+#endif //!VOX_CHUNK_H

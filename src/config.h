@@ -1,13 +1,16 @@
 #ifndef VOX_CONFIG_H
 #define VOX_CONFIG_H
 
-namespace config
+namespace Config
 {
-    extern int screen_width, screen_height;
-    extern const char* screen_title;
+    extern int SCREEN_WIDTH, SCREEN_HEIGHT;
+    extern const char* SCREEN_TITLE;
 
-    extern float fov;
-    extern float mouse_senstivity;
+    extern float FOV;
+    extern float MOUSE_SENSTIVITY;
+
+    extern unsigned int HORIZONTAL_RENDER_DISTANCE;
+    extern unsigned int VERTICAL_RENDER_DISTANCE;
 }
 
 #endif // !VOX_CONFIG_H
