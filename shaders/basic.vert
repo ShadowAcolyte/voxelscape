@@ -6,9 +6,14 @@ layout (location = 2) in vec2 v_texcoord;
 
 layout(location = 0) uniform mat4 proj_view;
 
-out vec2 texcoord;
+out vec3 f_position;
+out vec3 f_normal;
+out vec2 f_texcoord;
+
 void main()
 {
     gl_Position = proj_view * vec4(v_position, 1.0);
-    texcoord = v_texcoord;
+    f_position = v_position;
+    f_normal = v_normal;
+    f_texcoord = v_texcoord;
 }
