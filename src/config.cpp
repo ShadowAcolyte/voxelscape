@@ -1,11 +1,11 @@
 #include "config.h"
 
-int Config::SCREEN_WIDTH         = 1280;
-int Config::SCREEN_HEIGHT        = 720;
-const char* Config::SCREEN_TITLE = "Voxelscape";
+int config::screen_width         = 1280;
+int config::screen_height        = 720;
+std::string config::screen_title = "Voxelscape";
 
-float Config::FOV = 60.0f;
-float Config::MOUSE_SENSTIVITY = 0.1f;
+float config::fov = 60.0f;
+float config::mouse_sensitivity = 0.1f;
 
-unsigned int Config::HORIZONTAL_RENDER_DISTANCE = 8;
-unsigned int Config::VERTICAL_RENDER_DISTANCE   = 8;
+unsigned int config::horizontal_render_distance = 8;
+unsigned int config::vertical_render_distance   = 8;

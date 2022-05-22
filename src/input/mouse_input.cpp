@@ -2,44 +2,44 @@
 #include <GLFW/glfw3.h>
 
 #include "input.h"
-#include "../graphics/camera.h"
+#include "../camera.h"
 #include "../config.h"
 
-static bool _mouseCaptured = true;
-static float _lastx, _lasty;
-static float _yaw, _pitch;
+static bool __mouse_captured = true;
+static float __lastx, __lasty;
+static float __yaw, __pitch;
 
-void Input::InitMouseInput()
+void input::init_mouse_input()
 {
-    _lastx = Config::SCREEN_WIDTH  / 2.0f;
-    _lasty = Config::SCREEN_HEIGHT / 2.0f;
-    _yaw = _pitch = 0;
+    __lastx = config::screen_width  / 2.0f;
+    __lasty = config::screen_height / 2.0f;
+    __yaw = __pitch = 0;
 }
 
-void Input::CursorPosCallback(GLFWwindow* window, double xpos, double ypos)
+void input::cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
     // Prevents camera from making a sudden jump whenever window comes into focus
-    if (_mouseCaptured)
+    if (__mouse_captured)
     {
-        _lastx = xpos;
-        _lasty = ypos;
-        _mouseCaptured = false;
+        __lastx = xpos;
+        __lasty = ypos;
+        __mouse_captured = false;
         return;
     }
-    float xoffset = Config::MOUSE_SENSTIVITY * (xpos - _lastx);
-    float yoffset = Config::MOUSE_SENSTIVITY * (_lasty - ypos);
-    _lastx = xpos;
-    _lasty = ypos;
-    _yaw += xoffset;
-    _pitch += yoffset;
-    if (_pitch > 89.0f)
-        _pitch = 89.0f;
-    if (_pitch < -89.0f)
-        _pitch = -89.0f;
+    float xoffset = config::mouse_sensitivity * (xpos - __lastx);
+    float yoffset = config::mouse_sensitivity * (__lasty - ypos);
+    __lastx = xpos;
+    __lasty = ypos;
+    __yaw += xoffset;
+    __pitch += yoffset;
+    if (__pitch > 89.0f)
+        __pitch = 89.0f;
+    if (__pitch < -89.0f)
+        __pitch = -89.0f;
 }
 
-void Input::HandleMouseInput(Camera* cam)
+void input::handle_mouse_input(Camera* cam)
 {
-    cam->m_yaw = _yaw;
-    cam->m_pitch = _pitch;
+    cam->yaw = __yaw;
+    cam->pitch = __pitch;
 }

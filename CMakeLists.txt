@@ -2,37 +2,27 @@ cmake_minimum_required (VERSION 3.18)
 
 project (voxelscape VERSION 0.1)
 
-add_subdirectory (dependencies/glad)
-add_subdirectory (dependencies/glfw)
-add_subdirectory (dependencies/glm)
-add_subdirectory (dependencies/spdlog)
-add_subdirectory (dependencies/stb)
+add_subdirectory (lib/glad)
+add_subdirectory (lib/glfw)
+add_subdirectory (lib/glm)
+add_subdirectory (lib/spdlog)
+add_subdirectory (lib/stb)
 
 set (SRC
  "src/main.cpp"
+ "src/application.h" "src/application.cpp"
  "src/config.h" "src/config.cpp"
 
- "src/util/log.h" "src/util/log.cpp"
- "src/util/timer.h" "src/util/timer.cpp"
+ "src/log.h" "src/log.cpp"
 
  "src/input/input.h"
  "src/input/mouse_input.cpp"
  "src/input/keyboard_input.cpp"
 
- "src/graphics/mesh.h"
- "src/graphics/camera.h" "src/graphics/camera.cpp"
- "src/graphics/window.h" "src/graphics/window.cpp"
- "src/graphics/shader.h" "src/graphics/shader.cpp"
- "src/graphics/texture.h" "src/graphics/texture.cpp"
-
- "src/world/block/block.h"
- "src/world/block/block_id.h"
- "src/world/block/block_atlas.h" "src/world/block/block_atlas.cpp"
-
- "src/world/chunk/chunk.h" "src/world/chunk/chunk.cpp"
- "src/world/chunk/chunk_constants.h"
-  
- "src/world/direction.h")
+ "src/mesh.h"
+ "src/camera.h" "src/camera.cpp"
+ "src/window.h" "src/window.cpp"
+ "src/shader.h" "src/shader.cpp" )
 
 add_executable (voxelscape ${SRC})
 
@@ -40,4 +30,4 @@ target_compile_features (voxelscape PRIVATE cxx_std_17)
 target_link_libraries (voxelscape PRIVATE glad glfw glm stb spdlog::spdlog)
 
 file (COPY ./shaders DESTINATION ./)
-file (COPY ./textures DESTINATION ./)
+file (COPY ./assets DESTINATION ./)
