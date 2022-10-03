@@ -12,8 +12,7 @@
 static std::vector<spdlog::sink_ptr> __sinks;
 static std::shared_ptr<spdlog::logger> __core_logger;
 
-void logger::init()
-{
+void logger::init() {
     auto _stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 #ifdef _WIN32
     _stdout_sink->set_color(spdlog::level::info, 0b1010);

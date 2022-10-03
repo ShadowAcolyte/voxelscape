@@ -4,12 +4,10 @@
 
 #include "shader.h"
 
-static int __check_compile_errors(unsigned int shader)
-{
+static int __check_compile_errors(unsigned int shader) {
     int success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (success != GL_TRUE)
-    {
+    if (success != GL_TRUE) {
         int length;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
@@ -20,18 +18,15 @@ static int __check_compile_errors(unsigned int shader)
     return success;
 }
 
-static unsigned int __compile_shader(const std::string& type, const std::string& path)
-{
+static unsigned int __compile_shader(const std::string& type, const std::string& path) {
     std::ifstream file(path);
     std::string code;
 
-    if (file.fail())
-    {
+    if (file.fail()) {
         logger::error("Failed to read shader file: '{}'!", path.c_str());
         return 0;
     }
-    else
-    {
+    else {
         std::stringstream ss;
         ss << file.rdbuf();
         file.close();
@@ -57,12 +52,10 @@ static unsigned int __compile_shader(const std::string& type, const std::string&
     return shader;
 }
 
-static int __check_link_errors(unsigned int program)
-{
+static int __check_link_errors(unsigned int program) {
     int success;
     glGetProgramiv(program, GL_LINK_STATUS, &success);
-    if (success != GL_TRUE)
-    {
+    if (success != GL_TRUE) {
         int length;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
         char* info = new char[length];
@@ -73,8 +66,7 @@ static int __check_link_errors(unsigned int program)
     return success;
 }
 
-Shader::Shader(const char* vert_path, const char* frag_path, const char* comp_path)
-{
+Shader::Shader(const char* vert_path, const char* frag_path, const char* comp_path) {
     unsigned int vs, fs, cs;
     vs = fs = cs = 0;
     if (vert_path != nullptr) {

@@ -2,8 +2,7 @@
 
 #include <string>
 
-namespace config
-{
+namespace config {
     extern int screen_width, screen_height;
     extern std::string screen_title;
 

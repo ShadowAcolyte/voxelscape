@@ -9,15 +9,13 @@
 #include "input/input.h"
 
 static Camera* camptr;
-static void __window_size_callback(GLFWwindow* window, int width, int height)
-{
+static void __window_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
     camptr->update(camptr->fov, width * 1.0f / height, 0.01f, 100.0f);
 }
 
 Application::Application()
-    :  camera(glm::radians(config::fov), config::screen_width * 1.0f / config::screen_width, 0.1f, 100.0f)
-{
+    :  camera(glm::radians(config::fov), config::screen_width * 1.0f / config::screen_width, 0.1f, 100.0f) {
     logger::init();
     window = new Window();
     basic_shader = new Shader("shaders/basic.vert", "shaders/basic.frag", nullptr);
@@ -35,13 +33,11 @@ Application::Application()
     logger::info("Voxelscape version: {}", VERSION);
 }
 
-Application::~Application()
-{
+Application::~Application() {
     logger::info("Application stopped.");
 }
 
-void Application::update(float delta_ms)
-{
+void Application::update(float delta_ms) {
     input::handle_mouse_input(&camera);
     input::handle_keyboard_input(delta_ms, &camera);
     camera.update();
@@ -49,8 +45,7 @@ void Application::update(float delta_ms)
 
 unsigned int _vao, _vbo;
 
-void Application::render()
-{
+void Application::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     basic_shader->enable();
@@ -58,8 +53,7 @@ void Application::render()
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void Application::run()
-{
+void Application::run() {
     // time stuff
     int64_t previous_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
     int64_t current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
@@ -84,8 +78,7 @@ void Application::run()
 
     glfwSwapInterval(0);
     glClearColor(1.0f, 0.7f, 0.1f, 1.0f);
-    while (!glfwWindowShouldClose(window->handle))
-    {
+    while (!glfwWindowShouldClose(window->handle)) {
         current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
         delta_ns = current_frame - previous_frame;
         previous_frame = current_frame;

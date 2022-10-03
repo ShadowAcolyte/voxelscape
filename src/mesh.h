@@ -4,8 +4,7 @@
 #include <glm/vec3.hpp>
 #include <vector>
 
-struct Vertex
-{
+struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 texcoord;
@@ -17,8 +16,7 @@ struct Vertex
         : position(px, py, pz), normal(nx, ny, nz), texcoord(tx, ty), color(cx, cy, cz) {}
 };
 
-struct Mesh
-{
+struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 };
