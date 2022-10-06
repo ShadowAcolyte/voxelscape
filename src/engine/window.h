@@ -9,7 +9,7 @@ public:
     Window();
     ~Window();
 
-    GLFWwindow* handle;
-    int width, height;
-    std::string title;
+    GLFWwindow* m_handle;
+    int m_width, m_height;
+    std::string m_title;
 };

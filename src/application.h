@@ -1,22 +1,22 @@
 #pragma once
 
-#include "window.h"
-#include "camera.h"
-#include "shader.h"
+#include "engine/window.h"
+#include "engine/camera.h"
+#include "engine/shader.h"
 
 class Application {
 public:
     Application();
     ~Application();
 
-    void update(float delta_ms);
-    void render();
+    void Update(float delta_ms);
+    void Render();
 
-    void run();
+    void Run();
 private:
-    Window* window;
-    Shader* basic_shader;
-    Camera camera;
+    Window* m_window;
+    Shader* m_basicShader;
+    Camera m_camera;
 
     const std::string VERSION = "0.3.0";
 };

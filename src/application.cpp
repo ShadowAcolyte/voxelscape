@@ -5,55 +5,56 @@
 
 #include "application.h"
 #include "config.h"
-#include "log.h"
+#include "engine/log.h"
+#include "engine/mesh.h"
 #include "input/input.h"
 
 static Camera* camptr;
-static void __window_size_callback(GLFWwindow* window, int width, int height) {
+static void _WindowSizeCallback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
-    camptr->update(camptr->fov, width * 1.0f / height, 0.01f, 100.0f);
+    camptr->Update(camptr->m_fov, width * 1.0f / height, 0.01f, 100.0f);
 }
 
 Application::Application()
-    :  camera(glm::radians(config::fov), config::screen_width * 1.0f / config::screen_width, 0.1f, 100.0f) {
-    logger::init();
-    window = new Window();
-    basic_shader = new Shader("shaders/basic.vert", "shaders/basic.frag", nullptr);
+    :  m_camera(glm::radians(Config::FOV), Config::SCREEN_WIDTH * 1.0f / Config::SCREEN_HEIGHT, 0.01f, 100.0f) {
+    Logger::Init();
+    m_window = new Window();
+    m_basicShader = new Shader("shaders/basic.vert", "shaders/basic.frag");
     // set camera pointer for window resizing
-    camptr = &camera;
-    glfwSetWindowSizeCallback(window->handle, __window_size_callback);
+    camptr = &m_camera;
+    glfwSetWindowSizeCallback(m_window->m_handle, _WindowSizeCallback);
     // Input handling
-    input::init_mouse_input();
-    glfwSetCursorPosCallback(window->handle, input::cursor_pos_callback);
-    glfwSetKeyCallback(window->handle, input::key_callback);
-    glfwSetInputMode(window->handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    input::InitMouseInput();
+    glfwSetCursorPosCallback(m_window->m_handle, input::CursorPosCallback);
+    glfwSetKeyCallback(m_window->m_handle, input::KeyCallback);
+    glfwSetInputMode(m_window->m_handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    logger::info("Initialization complete.");
-    logger::info("OpenGL version: {}", glGetString(GL_VERSION));
-    logger::info("Voxelscape version: {}", VERSION);
+    Logger::Info("Initialization complete.");
+    Logger::Info("OpenGL version: {}", glGetString(GL_VERSION));
+    Logger::Info("Voxelscape version: {}", VERSION);
 }
 
 Application::~Application() {
-    logger::info("Application stopped.");
+    Logger::Info("Application stopped.");
 }
 
-void Application::update(float delta_ms) {
-    input::handle_mouse_input(&camera);
-    input::handle_keyboard_input(delta_ms, &camera);
-    camera.update();
+void Application::Update(float delta_ms) {
+    input::HandleMouseInput(&m_camera);
+    input::HandleKeyboardInput(delta_ms, &m_camera);
+    m_camera.Update();
 }
 
 unsigned int _vao, _vbo;
 
-void Application::render() {
+void Application::Render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    basic_shader->enable();
-    basic_shader->set_view_proj(camera.proj_view);
+    m_basicShader->Enable();
+    m_basicShader->SetViewProj(m_camera.m_projView);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void Application::run() {
+void Application::Run() {
     // time stuff
     int64_t previous_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
     int64_t current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
@@ -76,18 +77,21 @@ void Application::run() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(0);
 
+    // debugging stuff
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
     glfwSwapInterval(0);
-    glClearColor(1.0f, 0.7f, 0.1f, 1.0f);
-    while (!glfwWindowShouldClose(window->handle)) {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    while (!glfwWindowShouldClose(m_window->m_handle)) {
         current_frame = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
         delta_ns = current_frame - previous_frame;
         previous_frame = current_frame;
 
         // delta time in milliseconds
-        update(delta_ns / 1000000.0f);
-        render();
+        Update(delta_ns / 1000000.0f);
+        Render();
 
-        glfwSwapBuffers(window->handle);
+        glfwSwapBuffers(m_window->m_handle);
         glfwPollEvents();
     }
 }

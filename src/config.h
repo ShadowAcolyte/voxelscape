@@ -2,13 +2,13 @@
 
 #include <string>
 
-namespace config {
-    extern int screen_width, screen_height;
-    extern std::string screen_title;
+namespace Config {
+    extern int SCREEN_WIDTH, SCREEN_HEIGHT;
+    extern std::string SCREEN_TITLE;
 
-    extern float fov;
-    extern float mouse_sensitivity;
+    extern float FOV;
+    extern float MOUSE_SENSITIVITY;
 
-    extern unsigned int horizontal_render_distance;
-    extern unsigned int vertical_render_distance;
+    extern unsigned int HORIZONTAL_RENDER_DISTANCE;
+    extern unsigned int VERTICAL_RENDER_DISTANCE;
 }

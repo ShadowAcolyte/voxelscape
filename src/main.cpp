@@ -2,6 +2,6 @@
 
 int main() {
     Application* app = new Application();
-    app->run();
+    app->Run();
     return 0;
 }
