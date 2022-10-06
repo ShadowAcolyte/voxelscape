@@ -13,16 +13,15 @@ set (SRC
  "src/application.h" "src/application.cpp"
  "src/config.h" "src/config.cpp"
 
- "src/log.h" "src/log.cpp"
-
  "src/input/input.h"
  "src/input/mouse_input.cpp"
  "src/input/keyboard_input.cpp"
 
- "src/mesh.h"
- "src/camera.h" "src/camera.cpp"
- "src/window.h" "src/window.cpp"
- "src/shader.h" "src/shader.cpp" )
+ "src/engine/mesh.h"
+ "src/engine/log.h" "src/engine/log.cpp"
+ "src/engine/camera.h" "src/engine/camera.cpp"
+ "src/engine/window.h" "src/engine/window.cpp"
+ "src/engine/shader.h" "src/engine/shader.cpp" )
 
 add_executable (voxelscape ${SRC})
 
