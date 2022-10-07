@@ -3,7 +3,7 @@
 struct GLFWwindow;
 class Camera;
 
-namespace input {
+namespace Input {
     void InitMouseInput();
     void CursorPosCallback(GLFWwindow* window, double xpos, double ypos);
     void HandleMouseInput(Camera* cam);

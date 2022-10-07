@@ -9,13 +9,13 @@ static bool _mouseCaptured = true;
 static float _lastx, _lasty;
 static float _yaw, _pitch;
 
-void input::InitMouseInput() {
+void Input::InitMouseInput() {
     _lastx = Config::SCREEN_WIDTH  / 2.0f;
     _lasty = Config::SCREEN_HEIGHT / 2.0f;
     _yaw = _pitch = 0;
 }
 
-void input::CursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+void Input::CursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
     // Prevents camera from making a sudden jump whenever window comes into focus
     if (_mouseCaptured)
     {
@@ -36,7 +36,7 @@ void input::CursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
         _pitch = -89.0f;
 }
 
-void input::HandleMouseInput(Camera* cam) {
+void Input::HandleMouseInput(Camera* cam) {
     cam->m_yaw = _yaw;
     cam->m_pitch = _pitch;
 }

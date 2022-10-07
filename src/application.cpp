@@ -24,9 +24,9 @@ Application::Application()
     camptr = &m_camera;
     glfwSetWindowSizeCallback(m_window->m_handle, _WindowSizeCallback);
     // Input handling
-    input::InitMouseInput();
-    glfwSetCursorPosCallback(m_window->m_handle, input::CursorPosCallback);
-    glfwSetKeyCallback(m_window->m_handle, input::KeyCallback);
+    Input::InitMouseInput();
+    glfwSetCursorPosCallback(m_window->m_handle, Input::CursorPosCallback);
+    glfwSetKeyCallback(m_window->m_handle, Input::KeyCallback);
     glfwSetInputMode(m_window->m_handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     Logger::Info("Initialization complete.");
@@ -39,8 +39,8 @@ Application::~Application() {
 }
 
 void Application::Update(float delta_ms) {
-    input::HandleMouseInput(&m_camera);
-    input::HandleKeyboardInput(delta_ms, &m_camera);
+    Input::HandleMouseInput(&m_camera);
+    Input::HandleKeyboardInput(delta_ms, &m_camera);
     m_camera.Update();
 }
 

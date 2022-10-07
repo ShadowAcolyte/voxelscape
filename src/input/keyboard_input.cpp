@@ -15,12 +15,12 @@ struct KeyEvent {
 static std::map<int, bool> _keys;
 static std::queue<KeyEvent> _unhandledKeys;
 
-void input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     _unhandledKeys.emplace(key, scancode, action, mods);
 }
 
-void input::HandleKeyboardInput(float delta, Camera* cam)
+void Input::HandleKeyboardInput(float delta, Camera* cam)
 {
     while (!_unhandledKeys.empty())
     {
