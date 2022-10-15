@@ -1,8 +1,8 @@
 #pragma once
 
-#include "engine/window.h"
-#include "engine/camera.h"
-#include "engine/shader.h"
+#include "graphics/window.h"
+#include "graphics/camera.h"
+#include "graphics/shader.h"
 
 class Application {
 public:

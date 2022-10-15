@@ -5,8 +5,8 @@
 
 #include "application.h"
 #include "config.h"
-#include "engine/log.h"
-#include "engine/mesh.h"
+#include "log.h"
+#include "graphics/mesh.h"
 #include "input/input.h"
 
 static Camera* camptr;

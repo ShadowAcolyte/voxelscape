@@ -4,7 +4,7 @@
 #include <queue>
 
 #include "input.h"
-#include "../engine/camera.h"
+#include "../graphics/camera.h"
 
 struct KeyEvent {
     int key, scancode, action, mods;

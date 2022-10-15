@@ -5,10 +5,9 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
-#include "log.h"
+#include "../log.h"
 
-class Shader
-{
+class Shader {
 public:
     Shader(const std::string& vert_path, const std::string& frag_path, const std::string& comp_path = "");
 
