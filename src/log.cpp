@@ -1,9 +1,9 @@
-#include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
-#include <iomanip>
 #include <ctime>
+#include <iomanip>
 #include <sstream>
 #include <vector>
 
@@ -12,7 +12,8 @@
 static std::vector<spdlog::sink_ptr> sinks;
 static std::shared_ptr<spdlog::logger> coreLogger;
 
-void Logger::Init() {
+void Logger::Init()
+{
     auto stdoutSink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 #ifdef _WIN32
     stdoutSink->set_color(spdlog::level::info, 0b1010);

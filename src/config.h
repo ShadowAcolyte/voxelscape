@@ -2,7 +2,8 @@
 
 #include <string>
 
-namespace Config {
+namespace Config
+{
     extern int SCREEN_WIDTH, SCREEN_HEIGHT;
     extern std::string SCREEN_TITLE;
 
@@ -11,4 +12,4 @@ namespace Config {
 
     extern unsigned int HORIZONTAL_RENDER_DISTANCE;
     extern unsigned int VERTICAL_RENDER_DISTANCE;
-}
+} // namespace Config

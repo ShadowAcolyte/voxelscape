@@ -3,26 +3,27 @@
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 
-class Camera {
+class Camera
+{
 public:
-    float m_fov;
-    float m_pitch;
-    float m_yaw;
-    float m_camspeed;
+    float fov;
+    float pitch;
+    float yaw;
+    float camspeed;
 
-    glm::vec3 m_position;
-    glm::vec3 m_direction;
+    glm::vec3 position;
+    glm::vec3 direction;
     static const glm::vec3 up; // World's "up" direction
 
-    glm::mat4 m_view;
-    glm::mat4 m_projection;
-    glm::mat4 m_projView;
+    glm::mat4 view;
+    glm::mat4 projection;
+    glm::mat4 projView;
 
     Camera() = default;
-    Camera(float m_fov, float aspect_ratio, float znear, float zfar);
+    Camera(float fov, float aspect_ratio, float znear, float zfar);
 
     // Update view matrix
     void Update();
     // Update projection matrix
-    void Update(float m_fov, float aspect_ratio, float znear, float zfar);
+    void Update(float fov, float aspect_ratio, float znear, float zfar);
 };

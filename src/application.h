@@ -1,10 +1,11 @@
 #pragma once
 
-#include "graphics/window.h"
 #include "graphics/camera.h"
 #include "graphics/shader.h"
+#include "graphics/window.h"
 
-class Application {
+class Application
+{
 public:
     Application();
     ~Application();
@@ -13,10 +14,11 @@ public:
     void Render();
 
     void Run();
+
 private:
-    Window* m_window;
-    Shader* m_basicShader;
-    Camera m_camera;
+    Window *window;
+    Shader *basicShader;
+    Camera camera;
 
     const std::string VERSION = "0.3.0";
 };

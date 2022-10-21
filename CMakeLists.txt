@@ -21,7 +21,12 @@ set (SRC
  "src/graphics/mesh.h"
  "src/graphics/camera.h" "src/graphics/camera.cpp"
  "src/graphics/window.h" "src/graphics/window.cpp"
- "src/graphics/shader.h" "src/graphics/shader.cpp" )
+ "src/graphics/shader.h" "src/graphics/shader.cpp" 
+ 
+ "src/world/direction.h"
+ "src/world/chunk.h" "src/world/chunk.cpp"
+ "src/world/chunk_mesh.cpp"
+ "src/world/block.h" "src/world/block.cpp" )
 
 add_executable (voxelscape ${SRC})
 

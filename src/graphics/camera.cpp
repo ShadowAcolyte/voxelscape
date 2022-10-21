@@ -6,31 +6,34 @@
 
 const glm::vec3 Camera::up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-Camera::Camera(float m_fov, float aspect_ratio, float znear, float zfar) {
-    this->m_yaw = 0;
-    this->m_pitch = 0;
-    this->m_fov = m_fov;
-    this->m_camspeed = 0.01f;
+Camera::Camera(float fov, float aspect_ratio, float znear, float zfar)
+{
+    this->yaw = 0;
+    this->pitch = 0;
+    this->fov = fov;
+    this->camspeed = 0.01f;
 
-    this->m_position = glm::vec3(0.0f, 0.0f, 0.0f);
-    this->m_direction = glm::vec3(0.0f, 0.0f, 1.0f);
+    this->position = glm::vec3(0.0f, 0.0f, 0.0f);
+    this->direction = glm::vec3(0.0f, 0.0f, 1.0f);
 
-    this->m_projection = glm::perspective(m_fov, aspect_ratio, znear, zfar);
-    this->m_view = glm::lookAt(this->m_position, this->m_position + this->m_direction, Camera::up);
-    this->m_projView =this->m_projection * this->m_view;
+    this->projection = glm::perspective(fov, aspect_ratio, znear, zfar);
+    this->view = glm::lookAt(this->position, this->position + this->direction, Camera::up);
+    this->projView = this->projection * this->view;
 }
 
-void Camera::Update(float m_fov, float aspect_ratio, float znear, float zfar) {
-    this->m_projection = glm::perspective(m_fov, aspect_ratio, znear, zfar);
-    this->m_projView = this->m_projection * this->m_view;
+void Camera::Update(float fov, float aspect_ratio, float znear, float zfar)
+{
+    this->projection = glm::perspective(fov, aspect_ratio, znear, zfar);
+    this->projView = this->projection * this->view;
 }
 
-void Camera::Update() {
-    this->m_direction.x = cos(glm::radians(this->m_yaw)) * cos(glm::radians(this->m_pitch));
-    this->m_direction.y = sin(glm::radians(this->m_pitch));
-    this->m_direction.z = sin(glm::radians(this->m_yaw)) * cos(glm::radians(this->m_pitch));
-    this->m_direction = glm::normalize(this->m_direction);
+void Camera::Update()
+{
+    this->direction.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+    this->direction.y = sin(glm::radians(this->pitch));
+    this->direction.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+    this->direction = glm::normalize(this->direction);
 
-    this->m_view = glm::lookAt(this->m_position, this->m_position + this->m_direction, Camera::up);
-    this->m_projView = this->m_projection * this->m_view;
+    this->view = glm::lookAt(this->position, this->position + this->direction, Camera::up);
+    this->projView = this->projection * this->view;
 }
